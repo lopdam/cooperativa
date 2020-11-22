@@ -660,4 +660,12 @@ public class Bus {
         });
 
     }
+    private void salir(){
+        btnSalir.setOnAction(e -> {
+            s.close();
+        });
+    }
+    private void regresar(){
+        
+    }
 }

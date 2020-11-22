@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  *
  * @author anaklusmos
  */
-public class Cliente {
+public class Cliente implements Opciones {
 
     private Stage s;
 
@@ -136,20 +136,39 @@ public class Cliente {
     public Scene getSceneCliente() {
         return sceneCliente;
     }
-
-    private void Eventos() {
-        btnSalir.setOnAction(e -> {
+  private void Eventos() {
+        salir();
+        regresar();
+        registrar();
+        consultar();
+        filtroAscendente();
+        filtroDescendente();
+        lista();
+  
+    }
+  
+    @Override
+    public void salir() {
+       btnSalir.setOnAction(e -> {
             s.close();
-        });
+        }); 
+    }
+    @Override
+    public void regresar(){
         btnRegresar.setOnAction(q -> {
             Opcion.InicializarAll(s);
             s.setScene(Opcion.getSceneOpcion());
         });
+    }
+    @Override
+    public void registrar() {
         btnRegistrar.setOnAction(q -> {
             ClienteRegistrar clr = new ClienteRegistrar();
             clr.getStageClienteR().show();
         });
-
+    }
+    @Override
+    public void consultar(){
         boxConsulta.setOnKeyReleased(value -> {
             if (listConsulta.getValue().equals("Apellido")) {
                 try {
@@ -197,7 +216,9 @@ public class Cliente {
             }
 
         });
-
+    }
+    @Override
+    public void filtroAscendente(){
         btnAsc.setOnAction(value -> {
             if (listOrdenar.getValue().equals("Apellido")) {
                 if (listConsulta.getValue().equals("Apellido")) {
@@ -293,6 +314,9 @@ public class Cliente {
 
             }
         });
+    }
+    @Override
+    public void filtroDescendente(){
         btnDesc.setOnAction(eve -> {
             if (listOrdenar.getValue().equals("Apellido")) {
                 if (listConsulta.getValue().equals("Apellido")) {
@@ -389,15 +413,15 @@ public class Cliente {
             }
 
         });
-        
+    }
+    @Override
+    public void lista(){
         listCliente.setOnMouseClicked(clic->{
             String line[]=listCliente.getSelectionModel().getSelectedItem().toString().split("--");
         ClienteMostrar cliente=new ClienteMostrar(line[0]);
         cliente.getStageClienteM().show();
                 
         });
-        
-
     }
-
+    
 }
